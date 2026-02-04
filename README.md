@@ -18,6 +18,9 @@
 
 ## 📸 界面预览
 
+![](https://kevinspider-1258012111.cos.ap-shanghai.myqcloud.com/20260204175057.png)
+
+
 应用包含三个 TAB 页面：
 
 | TAB 页面 | 说明 |
@@ -86,10 +89,6 @@ pip install textual requests
 ```bash
 python main.py
 ```
-
-
-### TUI
-![](https://kevinspider-1258012111.cos.ap-shanghai.myqcloud.com/20260204175057.png)
 
 
 ### 键盘快捷键
