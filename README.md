@@ -87,6 +87,11 @@ pip install textual requests
 python main.py
 ```
 
+
+### TUI
+![](https://kevinspider-1258012111.cos.ap-shanghai.myqcloud.com/20260204175057.png)
+
+
 ### 键盘快捷键
 
 | 按键 | 功能 |
