@@ -37,7 +37,7 @@
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/yourusername/funds.git
+git clone https://github.com/kevinspider/funds.git
 cd funds
 ```
 
@@ -93,7 +93,8 @@ python main.py
 |------|------|
 | `q` | 退出程序 |
 | `Ctrl+C` | 退出程序 |
-| `鼠标点击` | 切换 TAB 页面 |
+| `鼠标点击` | 切换 TAB 页面|
+| `左右方向键` | 切换 TAB 页面|
 
 ## 📁 项目结构
 
@@ -103,7 +104,6 @@ funds/
 ├── req.py            # 数据请求模块
 ├── CONFIG.json       # 配置文件
 ├── requirements.txt  # 依赖列表
-├── .gitignore        # Git 忽略文件
 └── README.md         # 项目说明
 ```
 
@@ -156,28 +156,9 @@ A: 确保您的终端支持：
 - UTF-8 编码
 - 足够的终端尺寸（建议 80x24 以上）
 
-## 📝 开发计划
-
-- [ ] 添加基金详情查看功能
-- [ ] 支持添加/删除基金（在界面中操作）
-- [ ] 添加历史数据图表
-- [ ] 支持自定义主题
-- [ ] 添加涨跌幅提醒功能
-
 ## 📄 许可证
 
 MIT License
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
-## 📮 联系方式
-
-如有问题或建议，请通过以下方式联系：
-
-- 提交 [Issue](https://github.com/yourusername/funds/issues)
-- 发送邮件至 your.email@example.com
 
 ---
 
