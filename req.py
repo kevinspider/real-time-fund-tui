@@ -1,5 +1,6 @@
 import json
 import time
+import uuid
 import requests
 from typing import TypedDict
 
@@ -32,6 +33,13 @@ class IndustryINFO(TypedDict):
     f62: float
 
 
+class GlobalINFO(TypedDict):
+    name: str
+    value: str
+    zzl: float
+
+
+# 获取估值信息
 def get_gszzl(fund_code: str, retry: int = 10) -> GSZZLRES | None:
     while retry:
         try:
@@ -56,7 +64,8 @@ def get_gszzl(fund_code: str, retry: int = 10) -> GSZZLRES | None:
             retry -= 1
 
 
-def get_industry(retry:int = 10) -> list[IndustryINFO] | None:
+# 获取行业信息
+def get_industry(retry: int = 10) -> list[IndustryINFO] | None:
     while retry:
         try:
             headers = {
@@ -92,10 +101,82 @@ def get_industry(retry:int = 10) -> list[IndustryINFO] | None:
             retry -= 1
 
 
+# 获取收盘信息
+def get_zzl(fund_code: str | list[str], retry: int = 10) -> GSZZLRES | None:
+
+    while retry:
+        try:
+            if isinstance(fund_code, list):
+                fund_code = (",".join(fund_code)).rstrip(",")
+            url = "https://fundmobapi.eastmoney.com/FundMNewApi/FundMNFInfo"
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36"
+            }
+            params = {
+                "pageIndex": "1",
+                "pageSize": "200",
+                "plat": "Android",
+                "appType": "ttjj",
+                "product": "EFund",
+                "Version": "1",
+                "deviceid": str(uuid.uuid4()),
+                "Fcodes": fund_code,
+            }
+            res = requests.get(url=url, headers=headers, params=params)
+            print(res.text)
+            return
+        except Exception as e:
+            print(f"Error {e} from `get_zzl`")
+            retry -= 1
+
+
+# 获取大盘数据
+def get_global(retry: int = 10) -> list[GlobalINFO] | None:
+    while retry:
+        try:
+            url = "https://push2.eastmoney.com/api/qt/ulist.np/get"
+            headers = {
+                "Accept": "application/json, text/plain, */*",
+                "Accept-Language": "zh-CN,zh;q=0.9",
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "Pragma": "no-cache",
+                "Sec-Fetch-Dest": "empty",
+                "Sec-Fetch-Mode": "cors",
+                "Sec-Fetch-Site": "none",
+                "Sec-Fetch-Storage-Access": "active",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36",
+            }
+
+            params = {
+                "fltt": "2",
+                "fields": "f2,f3,f4,f12,f13,f14",
+                "secids": "1.000001,1.000300,0.399001,0.399006",
+                "_": str(int(time.time() * 1000)),
+            }
+            response = requests.get(url, headers=headers, params=params)
+            data = response.json()
+            result = []
+            for each in data["data"]["diff"]:
+                result.append(
+                    GlobalINFO(value=each["f2"], name=each["f14"], zzl=each["f3"])
+                )
+            return result
+
+        except Exception as e:
+            print(f"Error {e} from `get_global`")
+            retry -= 1
+
+
 if __name__ == "__main__":
 
-    res = get_gszzl("002963")
-    print(res)
+    # res = get_gszzl("002963")
+    # print(res)
 
-    res = get_industry()
+    # res = get_industry()
+    # print(res)
+
+    # get_zzl(["002963"], 10)
+
+    res = get_global(10)
     print(res)
