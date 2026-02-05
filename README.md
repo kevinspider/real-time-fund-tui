@@ -40,8 +40,8 @@
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/kevinspider/funds.git
-cd funds
+git clone https://github.com/kevinspider/real-time-fund-tui.git
+cd real-time-fund-tui
 ```
 
 ### 2. 安装依赖
@@ -99,11 +99,13 @@ python main.py
 | `Ctrl+C` | 退出程序 |
 | `鼠标点击` | 切换 TAB 页面|
 | `左右方向键` | 切换 TAB 页面|
+| `Tab` | 选项卡和Item切换 |
+| `Ctrl+P` | Options |
 
 ## 📁 项目结构
 
 ```
-funds/
+real-time-fund-tui/
 ├── main.py           # 主程序入口（Textual 应用）
 ├── req.py            # 数据请求模块
 ├── CONFIG.json       # 配置文件
@@ -127,6 +129,7 @@ funds/
 
 - `get_gszzl(fund_code, retry)` - 获取单只基金的实时数据
 - `get_industry(retry)` - 获取行业板块资金流向数据
+- `get_gloabl(retry)` - 获取大盘数据
 
 #### 数据来源
 
